@@ -1,0 +1,13 @@
+{
+  "event_id": "...",
+  "source": "signal",
+  "account_id": "...",
+  "conversation_id": "...",
+  "sender": "...",
+  "timestamp": 0,
+  "kind": "text",
+  "body": "...",
+  "attachments": [],
+  "reply_to": null,
+  "priority": 0
+}
