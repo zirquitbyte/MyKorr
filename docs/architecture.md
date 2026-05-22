@@ -8,23 +8,69 @@ A self-hosted information relay for portable esp32 communicators.
 
 ### System overview
 
-flowchart TB
++------------------------------------------------------------------+
+| External Platforms                                               |
+| Telegram | Signal | Discord | WhatsApp | RSS / Email             |
++------------------------------------------------------------------+
+                               |
+                               v
 
-A[External Platforms<br/>Telegram, Signal, Discord, WhatsApp, RSS/Email] --> B[Connector Runtime<br/>Headless clients]
++------------------------------------------------------------------+
+| Connector Runtime                                                |
+| Headless clients                                                 |
++------------------------------------------------------------------+
+                               |
+                               v
 
-B --> C[Message Normalization<br/>Unified schema, Necessary metadata, Deduplication]
++------------------------------------------------------------------+
+| Message Normalization                                            |
+| - Unified schema                                                 |
+| - Necessary metadata                                             |
+| - Deduplication                                                  |
++------------------------------------------------------------------+
+                               |
+                               v
 
-C --> D[Storage Layer<br/>Encrypted message DB, Search index, RSS cache, Media storage]
++------------------------------------------------------------------+
+| Storage Layer                                                    |
+| - Encrypted message DB                                           |
+| - Search index                                                   |
+| - RSS cache                                                      |
+| - Media storage                                                  |
++------------------------------------------------------------------+
+            |                            |                     |
+            v                            v                     v
 
-D --> E1[Query Engine<br/>RSS fetch, article fetch, adblock]
-D --> E2[Messaging API<br/>Sync, Messaging, Auth]
-D --> E3[File Sync<br/> fetch mp3, ebook from storage]
++-------------------+  +--------------------+  +-------------------+
+| Query Engine      |  | Messaging API      |  | File Sync         |
+| - RSS fetch       |  | - Sync             |  | - Fetch mp3       |
+| - Article fetch   |  | - Messaging        |  | - Fetch ebook     |
+| - Adblock         |  | - Auth             |  | - From storage    |
++-------------------+  +--------------------+  +-------------------+
+            \                            |                     /
+             \                           |                    /
+              \                          |                   /
+               \                         |                  /
+                \                        |                 /
+                 v                       v                v
 
-E1 --> F[Secure Overlay Network<br/>WireGuard, Pairing, relay server for CGNAT]
-E2 --> F
-E3 --> F
++------------------------------------------------------------------+
+| Secure Overlay Network                                           |
+| - WireGuard                                                      |
+| - Pairing                                                        |
+| - Relay server for CGNAT                                         |
++------------------------------------------------------------------+
+                               |
+                               v
 
-F --> G[ESP32 Communicator<br/>E-ink UI, Chorded input, Navigation, Offline cache, Media playback]
++------------------------------------------------------------------+
+| ESP32 Communicator                                               |
+| - E-ink UI                                                       |
+| - Chorded input                                                  |
+| - Navigation                                                     |
+| - Offline cache                                                  |
+| - Media playback                                                 |
++------------------------------------------------------------------+
 
 
 ---
@@ -33,21 +79,50 @@ F --> G[ESP32 Communicator<br/>E-ink UI, Chorded input, Navigation, Offline cach
 
 flowchart TB
 
-A[API Gateway<br/>HTTP,  Auth, Session, Device routing]
++--------------------------------------------------------------+
+| API Gateway                                                  |
+| HTTP | Auth | Session | Device routing                       |
++--------------------------------------------------------------+
+             |                    |                    |
+             v                    v                    v
 
-A --> B1[Message API<br/>Inbox, Send, Conversations]
-A --> B2[Query API<br/>RSS, Article fetching by query]
-A --> B3[Device API<br/>Sync, Presence]
++----------------------+  +----------------------+  +----------------------+
+| Message API          |  | Query API            |  | Device API           |
+| - Inbox              |  | - RSS                |  | - Sync               |
+| - Send               |  | - Article fetch      |  | - Presence           |
+| - Conversations      |  |   by query           |  |                      |
++----------------------+  +----------------------+  +----------------------+
+             \                    |                    /
+              \                   |                   /
+               \                  |                  /
+                \                 |                 /
+                 v                v                v
 
-B1 --> C[Internal Event Bus<br/>Message, Connector, Sync events, Queue/retry]
-B2 --> C
-B3 --> C
++--------------------------------------------------------------+
+| Internal Event Bus                                           |
+| - Message events                                             |
+| - Connector events                                           |
+| - Sync events                                                |
+| - Queue / retry                                              |
++--------------------------------------------------------------+
+             |                    |                    |
+             v                    v                    v
 
-C --> D1[Connector Runtime<br/>Telegram, Signal, Discord, WhatsApp]
-C --> D2[Message Store<br/>SQLite, Encryption, Metadata index, Attachments]
-C --> D3[Query Engine<br/>RSS parser, Article fetch, Adblock]
++----------------------+  +----------------------+  +----------------------+
+| Connector Runtime    |  | Message Store        |  | Query Engine         |
+| - Telegram           |  | - SQLite             |  | - RSS parser         |
+| - Signal             |  | - Encryption         |  | - Article fetch      |
+| - Discord            |  | - Metadata index     |  | - Adblock            |
+| - WhatsApp           |  | - Attachments        |  |                      |
++----------------------+  +----------------------+  +----------------------+
+             |
+             v
 
-D1 --> E[Connector Isolation Layer<br/>Per-connector state, Health checks]
++--------------------------------------------------------------+
+| Connector Isolation Layer                                    |
+| - Per-connector state                                        |
+| - Health checks                                              |
++--------------------------------------------------------------+
 
 ---
 
@@ -55,15 +130,50 @@ D1 --> E[Connector Isolation Layer<br/>Per-connector state, Health checks]
 
 flowchart TB
 
-A[User Interaction<br/>Chorded keyboard, Rotary encoder, Buttons]
++--------------------------------------------------------------+
+| User Interaction                                             |
+| Chorded keyboard | Rotary encoder | Buttons                  |
++--------------------------------------------------------------+
+                              |
+                              v
 
-A --> B[Input Processing<br/>Key mapping, Navigation state, Shortcuts]
++--------------------------------------------------------------+
+| Input Processing                                              |
+| - Key mapping                                                 |
+| - Navigation state                                            |
+| - Shortcuts                                                   |
++--------------------------------------------------------------+
+                              |
+                              v
 
-B --> C[UI State Engine<br/>Conversations, Message rendering, Articles, Media, Notifications]
++--------------------------------------------------------------+
+| UI State Engine                                               |
+| - Conversations                                               |
+| - Message rendering                                           |
+| - Articles                                                    |
+| - Media                                                       |
+| - Notifications                                               |
++--------------------------------------------------------------+
+                              |
+                              v
 
-C --> D[Network Sync Client<br/>API requests, Auth, Cache sync, Overlay VPN tunnel]
++--------------------------------------------------------------+
+| Network Sync Client                                           |
+| - API requests                                                |
+| - Auth                                                        |
+| - Cache sync                                                  |
+| - Overlay VPN tunnel                                          |
++--------------------------------------------------------------+
+                              |
+                              v
 
-D --> E[Local Device Cache<br/>Messages, UI state, Offline queue, Cached articles]
++--------------------------------------------------------------+
+| Local Device Cache                                            |
+| - Messages                                                    |
+| - UI state                                                    |
+| - Offline queue                                               |
+| - Cached articles                                             |
++--------------------------------------------------------------+
 
 ---
 
@@ -71,15 +181,45 @@ D --> E[Local Device Cache<br/>Messages, UI state, Offline queue, Cached article
 
 flowchart TB
 
-A[External Platforms] --> B[Connector Layer]
++--------------------------------------------------------------+
+| External Platforms                                           |
++--------------------------------------------------------------+
+                              |
+                              v
 
-B --> C[Normalization / Processing<br/>temporary plaintext]
++--------------------------------------------------------------+
+| Connector Layer                                              |
++--------------------------------------------------------------+
+                              |
+                              v
 
-C -->|Encryption Boundary| D[Encrypted Storage<br/>Messages, Attachments, User content]
++--------------------------------------------------------------+
+| Normalization / Processing                                   |
+| temporary plaintext                                          |
++--------------------------------------------------------------+
+                              |
+                              v
+                       (Encryption Boundary)
 
-D --> E[Messaging API]
++--------------------------------------------------------------+
+| Encrypted Storage                                            |
+| - Messages                                                   |
+| - Attachments                                                |
+| - User content                                               |
++--------------------------------------------------------------+
+                              |
+                              v
 
-E --> F[ESP32 Device<br/>Trusted endpoint, Final rendering]
++--------------------------------------------------------------+
+| Messaging API                                                |
++--------------------------------------------------------------+
+                              |
+                              v
+
++--------------------------------------------------------------+
+| ESP32 Device                                                 |
+| Trusted endpoint | Final rendering                           |
++--------------------------------------------------------------+
 
 ---
 
