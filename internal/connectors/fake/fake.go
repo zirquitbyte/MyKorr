@@ -5,8 +5,8 @@ import (
 	"time"
 	"math/rand"
 
-	"mykorelay/internal/db"
-	"mykorelay/internal/models"
+	"MyKorr/internal/db"
+	"MyKorr/internal/models"
 )
 
 type FakeConnector struct {}
@@ -44,12 +44,12 @@ func (c *FakeConnector) Start(store db.MessageStore) {
 
         msg := models.Message{
 			Timestamp: time.Now(),
-			Event_id: 1,
+			ConversationID: "1",
 			Source: "fake",
 			Sender: "ThatOneFriend",
 			Body: body,
 			Attachments: true,
-			Reply_to: 0,
+			Reply_to: "0",
         }
 
         store.Save(msg)

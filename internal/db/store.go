@@ -1,8 +1,9 @@
 package db
 
-import "mykorelay/internal/models"
+import "MyKorr/internal/models"
 
 // interface to be layer between relay and database backends to avoid tight coupling
 type MessageStore interface {
+	GetMessages(conversationID string) ([]models.Message, error)
 	Save(models.Message) error
 }
