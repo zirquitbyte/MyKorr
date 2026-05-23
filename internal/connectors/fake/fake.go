@@ -5,8 +5,8 @@ import (
 	"time"
 	"math/rand"
 
-	"mykorelay/internal/db"
-	"mykorelay/internal/models"
+	"MyKorr/internal/db"
+	"MyKorr/internal/models"
 )
 
 type FakeConnector struct {}
