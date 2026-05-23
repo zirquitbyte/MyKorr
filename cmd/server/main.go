@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"mykorelay/internal/connectors/fake"
@@ -9,7 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Println("hello bitchez!")
 	log.Println("starting relay daemon...")
 	
 	store := db.NewMemoryDB() //store layer to keep DB type swappable
