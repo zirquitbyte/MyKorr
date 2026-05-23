@@ -10,7 +10,7 @@ A self-hosted information relay for portable esp32 communicators.
 
 1. Clone
 ```bash
-git clone https://github.com/USERNAME/MyKorr.git
+git clone https://github.com/zirquitbyte/MyKorr.git
 cd MyKorr
 ```
 
