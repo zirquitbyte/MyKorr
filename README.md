@@ -71,6 +71,7 @@ No external contributions accepted at this time. Working on our contributions po
 
 - Conversation listing
 - Telegram connector
+- ESP32 interface
 
 ---
 
