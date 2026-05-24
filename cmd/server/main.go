@@ -11,8 +11,26 @@ import (
 
 func main() {
 	log.Println("relay server accessible on http://localhost:5656")
+	
+// Declare a variable of the interface type (no value yet)
+var store db.MessageStore
 
-	store := db.NewMemoryDB() //store layer to keep DB type swappable
+// Create a concrete SQLite store
+sqlite, err := db.NewSQLiteStore("data/messages.db")
+if err != nil {
+	log.Fatal(err)
+}
+
+// Assign the concrete store to the interface variable
+store = sqlite
+
+// Ensure the concrete store is closed on exit
+defer store.Close()
+
+// Initialize the store (creates table etc.)
+if err := store.Init(); err != nil {
+	log.Fatal(err)
+}
 
 	apiHandler := api.NewAPI(store)
 
