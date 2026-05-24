@@ -69,7 +69,6 @@ No external contributions accepted at this time. Working on our contributions po
 
 ### MVP Roadmap
 
-- SQLite DB persistence
 - Conversation listing
 - Telegram connector
 
