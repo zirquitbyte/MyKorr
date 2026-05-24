@@ -2,6 +2,7 @@ package db
 
 import (
     "database/sql"
+	"time"
 
     _ "github.com/mattn/go-sqlite3"
 	
@@ -33,7 +34,7 @@ source TEXT,
 sender TEXT,
 body TEXT,
 attachments INTEGER,
-reply_to TEXT
+replyto TEXT
 );
 `
 _, err := s.db.Exec(query)
@@ -42,16 +43,21 @@ return err
 
 func (s *SQLiteStore) Save(msg models.Message) error {
     query := `
-    INSERT INTO messages (source, body, timestamp)
-    VALUES (?, ?, ?)
+    INSERT INTO messages (id, timestamp, conversation_id, source, sender, body, attachments, replyto)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `
 
-    _, err := s.db.Exec(
-        query,
-        msg.Source,
-        msg.Body,
-        msg.Timestamp,
-    )
+	_, err := s.db.Exec(
+	query,
+	msg.ID,
+	msg.Timestamp.Unix(),
+	msg.ConversationID,
+	msg.Source,
+	msg.Sender,
+	msg.Body,
+	bool(msg.Attachments), 
+	msg.Replyto,
+	)
 
     return err
 }
@@ -59,7 +65,7 @@ func (s *SQLiteStore) Save(msg models.Message) error {
 func (s *SQLiteStore) GetMessages(string) ([]models.Message, error) {
 
 query := `
-SELECT source, body, timestamp
+SELECT id, timestamp, conversation_id, source, sender, body, attachments, replyto
 FROM messages
 ORDER BY timestamp DESC
 `
@@ -71,15 +77,20 @@ if err != nil {
 defer rows.Close()
 
 var messages []models.Message
+
 for rows.Next() {
     var msg models.Message
-    if err := rows.Scan(&msg.Source, &msg.Body, &msg.Timestamp); err != nil {
+    var ts int64
+    var attachmentsInt int
+    if err := rows.Scan(&msg.ID, &ts, &msg.ConversationID, &msg.Source, &msg.Sender, &msg.Body, &attachmentsInt, &msg.Replyto); err != nil {
         return nil, err
     }
+    msg.Timestamp = time.Unix(ts, 0)
+    msg.Attachments = attachmentsInt != 0
     messages = append(messages, msg)
 }
-return messages, nil
 
+	return messages, nil
 }
 
 func (s *SQLiteStore) Close() error {

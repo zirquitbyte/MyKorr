@@ -10,7 +10,7 @@ type Message struct {
 	Sender	string `json:"sender"`
 	Body	string `json:"body"`
 	Attachments	bool
-	Reply_to	string `json:"reply_to"`
+	Replyto	string `json:"replyto"`
 }
 
 type Conversation struct {

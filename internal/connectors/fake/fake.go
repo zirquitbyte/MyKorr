@@ -49,7 +49,7 @@ func (c *FakeConnector) Start(store db.MessageStore) {
 			Sender: "ThatOneFriend",
 			Body: body,
 			Attachments: true,
-			Reply_to: "0",
+			Replyto: "0",
         }
 
         store.Save(msg)
