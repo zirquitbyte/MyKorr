@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 	"math/rand"
+	"github.com/google/uuid"
 
 	"MyKorr/internal/db"
 	"MyKorr/internal/models"
@@ -43,6 +44,7 @@ func (c *FakeConnector) Start(store db.MessageStore) {
 		)
 
         msg := models.Message{
+			ID: uuid.NewString(),
 			Timestamp: time.Now(),
 			ConversationID: "1",
 			Source: "fake",
