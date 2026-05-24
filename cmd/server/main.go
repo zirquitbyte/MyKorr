@@ -11,8 +11,21 @@ import (
 
 func main() {
 	log.Println("relay server accessible on http://localhost:5656")
+	
+var store db.MessageStore
 
-	store := db.NewMemoryDB() //store layer to keep DB type swappable
+sqlite, err := db.NewSQLiteStore("data/messages.db")
+if err != nil {
+	log.Fatal(err)
+}
+
+store = sqlite
+
+defer store.Close()
+
+if err := store.Init(); err != nil {
+	log.Fatal(err)
+}
 
 	apiHandler := api.NewAPI(store)
 
