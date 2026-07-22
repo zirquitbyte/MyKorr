@@ -69,9 +69,26 @@ No external contributions accepted at this time. Working on our contributions po
 
 ### MVP Roadmap
 
-- Conversation listing
-- Telegram connector
-- ESP32 interface
+• Basic firmware
+• First messaging connectors
+
+
+## V1
+
+• Multiple connectors
+• Encrypted storage
+• Overlay VPN pairing
+• RSS/article system
+• Ebook/music support
+
+
+## Longterm goals
+
+• Applet ecosystem
+• Third-party applications
+• Audio
+• GPS
+• Mesh networking
 
 ---
 
