@@ -2,8 +2,6 @@
 
 A self-hosted information relay for portable esp32 communicators.
 
-**Status:** Prototype / WIP / Proof-of-concept
-
 ---
 
 ### System overview
@@ -82,31 +80,3 @@ D --> E[Messaging API]
 E --> F[ESP32 Device<br/>Trusted endpoint, Final rendering]
 ```
 ---
-
-### Goals
-
-## MVP (Current Goal)
-
-• Go server daemon
-• Fake connector
-• Telegram connector
-• Message normalization
-• SQLite DB
-• API
-• Basic ESP32 text interface
-
-
-## V1
-
-• Multiple connectors
-• Encrypted storage
-• Overlay VPN pairing
-• RSS/article system
-• Ebook/music support
-
-
-
-## Longterm goals
-
-• Applet ecosystem
-• Voice note transcription
