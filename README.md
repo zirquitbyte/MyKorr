@@ -2,7 +2,7 @@
 
 A self-hosted information relay for portable esp32 communicators.
 
-> .[!Warning]
+> [!Warning]
 > This repository has been archived. Please view the newer version at https://codeberg.org/zirquitbyte/MyKorr  
 
 ---
